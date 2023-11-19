@@ -1,4 +1,5 @@
 from nltk.stem import PorterStemmer, WordNetLemmatizer
+import matplotlib.pyplot as plt
 import numpy as pd
 import pandas as pd
 from nltk.corpus import stopwords
@@ -78,16 +79,16 @@ bow_test_transformed = tfidf.transform(bag_of_words_test)
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
 rf = RandomForestClassifier(n_estimators=100).fit(tfidf_transformed, y_train)
-print("\n Accuracy of RandomForest Classifier" ,rf.score(bow_test_transformed,y_test))
+rf_accuracy = rf.score(bow_test_transformed,y_test)
+print("\n Accuracy of RandomForest Classifier" ,rf_accuracy)
 predict_rf = rf.predict(bow_test_transformed)
 print("\n \n ",classification_report(y_test, predict_rf))
-
-
 
 # evaluating accuracy using Support Vector Classifier
 from sklearn.svm import SVC
 svc = SVC(C = 1000, gamma = 0.001).fit(tfidf_transformed, y_train)
-print("\n Accuracy of Support Vector Classifier" ,svc.score(bow_test_transformed, y_test))
+svc_accuracy = svc.score(bow_test_transformed, y_test)
+print("\n Accuracy of Support Vector Classifier" ,svc_accuracy)
 predict_svc = svc.predict(bow_test_transformed)
 print("\n \n ",classification_report(y_test, predict_svc))
 
@@ -95,10 +96,27 @@ print("\n \n ",classification_report(y_test, predict_svc))
 # evaluating accuracy using LogisticRegression
 from sklearn.linear_model import LogisticRegression
 lr = LogisticRegression(solver='lbfgs',multi_class='auto',n_jobs=10).fit(tfidf_transformed, y_train)
-print("\n Accuracy of LogisticRegression" ,lr.score(bow_test_transformed, y_test))
+lr_accuracy = lr.score(bow_test_transformed, y_test)
+print("\n Accuracy of LogisticRegression" ,lr_accuracy)
 predict_lr = lr.predict(bow_test_transformed)
 print("\n \n ", classification_report(y_test, predict_lr))
 
+from sklearn.naive_bayes import MultinomialNB
+nb = MultinomialNB()
+nb.fit(tfidf_transformed, y_train)
+nb_accuracy = nb.score(bow_test_transformed, y_test)
+print("\n Accuracy of Naive Bayes:", nb_accuracy)
+predict_nb = nb.predict(bow_test_transformed)
+print("\n\n", classification_report(y_test, predict_nb))
+
+models = ['Random Forest', 'Support Vector Classifier', 'Logistic Regression', 'Naive Bayes']
+accuracies = [rf_accuracy, svc_accuracy, lr_accuracy, nb_accuracy]
+
+plt.bar(models, accuracies, color=['green', 'orange', 'blue', 'red'])
+plt.ylabel('Accuracy')
+plt.title('Comparison of Model Accuracies')
+plt.ylim(0, 1)  # Set the y-axis limit between 0 and 1 for accuracy
+plt.show()
 
 # prediction using Random Forest Classifier as it has highest accuracy.
 from sklearn.pipeline import Pipeline
@@ -110,7 +128,7 @@ pl = Pipeline([
 pl.fit(X_train,y_train)
 flag =0
 while(flag == 0) :
-    print("Enter 1. to check tweet sentiment (or)  2. To Exit")
+    print("Choose an option 1. Enter a TWEET to check it's sentiment 2. Exit")
     value = int(input())
     if value == 2:
         break
@@ -119,5 +137,5 @@ while(flag == 0) :
     print("\n \n " ,to_predict ,' \n The tweet result is  : ',prediction[0])
     print("******************************************")
     print()
-print("********* Thnak You!! ***********")
+print("********* Thank You!! ***********")
     
