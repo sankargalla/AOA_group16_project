@@ -119,5 +119,5 @@ while(flag == 0) :
     print("\n \n " ,to_predict ,' \n The tweet result is  : ',prediction[0])
     print("******************************************")
     print()
-print("********* Thnak You!! ***********")
+print("********* Thank You!! ***********")
     
