@@ -101,6 +101,7 @@ print("\n Accuracy of LogisticRegression" ,lr_accuracy)
 predict_lr = lr.predict(bow_test_transformed)
 print("\n \n ", classification_report(y_test, predict_lr))
 
+# evaluating accuracy using NaiveBayes
 from sklearn.naive_bayes import MultinomialNB
 nb = MultinomialNB()
 nb.fit(tfidf_transformed, y_train)
@@ -120,7 +121,7 @@ pl = Pipeline([
 pl.fit(X_train,y_train)
 flag =0
 while(flag == 0) :
-    print("Choose an option 1. Enter a TWEET to check it's sentiment 2. Exit")
+    print("Choose an option 1. Enter a Tweet to check it's sentiment 2. Exit")
     value = int(input())
     if value == 2:
         break
@@ -131,6 +132,7 @@ while(flag == 0) :
     print()
 print("********* Thank You!! ***********")
 
+# Bar chat representation of the accuracies.
 models = ['Random Forest', 'Support Vector Classifier', 'Logistic Regression', 'Naive Bayes']
 accuracies = [rf_accuracy, svc_accuracy, lr_accuracy, nb_accuracy]
 
