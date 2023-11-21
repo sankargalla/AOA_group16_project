@@ -109,14 +109,6 @@ print("\n Accuracy of Naive Bayes:", nb_accuracy)
 predict_nb = nb.predict(bow_test_transformed)
 print("\n\n", classification_report(y_test, predict_nb))
 
-models = ['Random Forest', 'Support Vector Classifier', 'Logistic Regression', 'Naive Bayes']
-accuracies = [rf_accuracy, svc_accuracy, lr_accuracy, nb_accuracy]
-
-plt.bar(models, accuracies, color=['green', 'orange', 'blue', 'red'])
-plt.ylabel('Accuracy')
-plt.title('Comparison of Model Accuracies')
-plt.ylim(0, 1)  # Set the y-axis limit between 0 and 1 for accuracy
-plt.show()
 
 # prediction using Random Forest Classifier as it has highest accuracy.
 from sklearn.pipeline import Pipeline
@@ -138,4 +130,14 @@ while(flag == 0) :
     print("******************************************")
     print()
 print("********* Thank You!! ***********")
+
+models = ['Random Forest', 'Support Vector Classifier', 'Logistic Regression', 'Naive Bayes']
+accuracies = [rf_accuracy, svc_accuracy, lr_accuracy, nb_accuracy]
+
+plt.bar(models, accuracies, color=['green', 'orange', 'blue', 'red'])
+plt.ylabel('Accuracy')
+plt.title('Comparison of Model Accuracies')
+plt.ylim(0, 1)  # Set the y-axis limit between 0 and 1 for accuracy
+plt.show()
+
     
